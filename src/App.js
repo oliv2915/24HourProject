@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.css";
 import {useState, useEffect, useRef} from "react";
-import View from "./components/View";
+import View from "./components/View.jsx";
 
 function App() {
-  const location = useRef()
-  const date = useRef()
+  const location = useRef();
+  const date = useRef();
   const [nasaImage, setNasaImage] = useState("");
   const [weatherData, setWeatherData] = useState({});
 
@@ -12,13 +12,13 @@ function App() {
     const currDate = new Date().toISOString().slice(0,10);
     date.current = currDate; // current date
 
-    console.log("GeoLocation Before toFixed", position)
+    // console.log("GeoLocation Before toFixed", position)
     const currCoords = {
       latitude: new Number(position.coords.latitude).toFixed(2),
       longitude: new Number(position.coords.longitude).toFixed(2)
     }
     location.current = currCoords; // current geo location
-    console.log("GeoLocation After toFixed", location)
+    // console.log("GeoLocation After toFixed", location)
 
     fetchWeatherData(location);
     fetchNasaImage(location, date);
@@ -37,7 +37,7 @@ function App() {
   const fetchNasaImage = async (location, date) => {
     try {
       const query = `${process.env.REACT_APP_NASA_EARTH_API_URL}?api_key=${process.env.REACT_APP_NASA_API_KEY}&lat=${location.current.latitude}&lon=${location.current.longitude}&date=${date.current}`
-      console.log("NASA Fetch URL:", query)
+      // console.log("NASA Fetch URL:", query)
       const response = await fetch(query);
       const nasaImage = await response.json();
       
@@ -50,8 +50,8 @@ function App() {
 
   const fetchWeatherData = async (location) => {
     try {
-      const query = `${process.env.REACT_APP_OPEN_WEATHER_API_URL}?lat=${location.current.latitude}&lon=${location.current.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
-      console.log("Weather Fetch URL:", query)
+      const query = `${process.env.REACT_APP_OPEN_WEATHER_API_URL}?&units=imperial&lat=${location.current.latitude}&lon=${location.current.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
+      // console.log("Weather Fetch URL:", query)
       const response = await fetch(query);
       const weatherData = await response.json();
       setWeatherData(weatherData);

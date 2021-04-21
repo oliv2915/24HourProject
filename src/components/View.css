@@ -1,0 +1,13 @@
+img {
+    border: solid 1px red;
+}
+
+div.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .weatherData {
+
+} */
