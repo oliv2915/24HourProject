@@ -51,7 +51,7 @@ function App() {
   const fetchWeatherData = async (location) => {
     try {
       const query = `${process.env.REACT_APP_OPEN_WEATHER_API_URL}?&units=imperial&lat=${location.current.latitude}&lon=${location.current.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
-      console.log("Weather Fetch URL:", query)
+      // console.log("Weather Fetch URL:", query)
       const response = await fetch(query);
       const weatherData = await response.json();
       setWeatherData(weatherData);
