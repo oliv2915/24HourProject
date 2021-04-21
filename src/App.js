@@ -34,9 +34,19 @@ function App() {
     return window.navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);
   
-  const fetchNasaImage = async ({latitude, longitude}) => {
-   console.log("Fetch Image")
-  };
+ 
+  
+    const fetchNasaImage = async ({latitude, longitude}) => {
+      const query = `${process.env.REACT_APP_NASA_EARTH_API_URL}?api_key=${process.env.REACT_APP_NASA_API_KEY}&lat=${latitude}&lon=${longitude}&date=${date}`
+      
+      const response = await fetch(query);
+      const nasaImage = await response.json();
+      
+      setNasaImage(nasaImage);
+      };
+  
+    console.log("Fetch Image")
+  
 
   const fetchWeatherData = async ({latitude, longitude}) => {
     console.log("Fetch Weather")
