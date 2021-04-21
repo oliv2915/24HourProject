@@ -39,8 +39,13 @@ function App() {
   };
 
   const fetchWeatherData = async ({latitude, longitude}) => {
-    console.log("Fetch Weather")
-  };
+    const query = `${process.env.REACT_APP_OPEN_WEATHER_API_URL}?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
+    
+    const response = await fetch(query);
+    const weatherData = await response.json();
+    
+    setWeatherData(weatherData);
+    };
 
   return (
     <div>
