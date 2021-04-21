@@ -44,7 +44,7 @@ export default function View ({nasaImage, weatherData}) {
 
             </div>
             <Button onClick={convertToggleBtnClick} color='primary'>{convertToggle ? 'Convert Temperature to Fahrenheit' : 'Convert Temperature to Centigrade'}</Button>
-            {console.log(forecast)}
+            {/* {console.log(forecast)} */}
         </div>
     )
 
