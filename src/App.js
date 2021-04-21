@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import {useState, useEffect, useRef} from "react";
-import View from "./components/View";
+import View from "./components/View.jsx";
 
 function App() {
   const location = useRef();
