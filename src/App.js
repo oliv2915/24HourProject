@@ -3,37 +3,50 @@ import {useState, useEffect} from "react";
 import View from "./components/View";
 
 function App() {
-  const [longitude, setLongitude] = useState();
-  const [latitude, setLatitude] = useState();
-  const [nasaImage, setNasaImage] = useState();
-  const [weatherData, setWeatherData] = useState();
+  const [location, setLocation] = useState({})
+  const [date, setDate] = useState("")
+  const [nasaImage, setNasaImage] = useState("");
+  const [weatherData, setWeatherData] = useState({});
+
+  const onSuccess = (position) => {
+    const currDate = new Date().toISOString().slice(0,10);
+    setDate(currDate);
+
+    console.log(position)
+    const currCoords = {
+      latitude: new Number(position.coords.latitude).toFixed(2),
+      longitude: new Number(position.coords.longitude).toFixed(2)
+    }
+    setLocation(currCoords);
+    fetchWeatherData(location);
+    fetchNasaImage(location);
+
+    console.log(nasaImage)
+  };
+
+  const onError = (error) => {
+    console.log(`GeoLocation Error: ${error}`)
+    setWeatherData({});
+    setNasaImage("");
+  };
 
   useEffect(() => {
-    window.navigator.geolocation.getCurrentPosition(geoLocationData);
+    return window.navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);
-
-
-  const geoLocationData = (geoData) => {
-    setLatitude(geoData.coords.latitude);
-    setLongitude(geoData.coords.longitude);
-
-    fetchNasaImage(longitude, latitude);
-    fetchWeatherData(longitude, latitude);
-  };
   
-  const fetchNasaImage = (longitude, latitude) => {
-    console.log("fetched nasa image")
-  }
+  const fetchNasaImage = async ({latitude, longitude}) => {
+   console.log("Fetch Image")
+  };
 
-  const fetchWeatherData = (longitude, latitude) => {
-    console.log("fetched weather data")
-  }
+  const fetchWeatherData = async ({latitude, longitude}) => {
+    console.log("Fetch Weather")
+  };
 
   return (
     <div>
       <View nasaImage={nasaImage} weatherData={weatherData}/>
     </div>
-  );
+  )
 }
 
 export default App;
